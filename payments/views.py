@@ -1,5 +1,6 @@
 import stripe
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.http.response import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView
@@ -31,7 +32,15 @@ def create_checkout_session(request):
             # For full details see https:#stripe.com/docs/api/checkout/sessions/create
 
             # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+
+            # If we want to identify the user when using webhooks we can pass client_reference_id  to checkout
+            # session constructor. We will then be able to fetch it and make changes to our Django models.
+            #
+            # If we offer a SaaS service it would also be good to allow only authenticated users to purchase
+            # anything on our site.
+
             checkout_session = stripe.checkout.Session.create(
+                client_reference_id=request.user.id if request.user.is_authenticated else None,
                 success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
                 cancel_url=domain_url + 'cancelled/',
                 payment_method_types=['card'],
@@ -108,9 +117,24 @@ def stripe_webhook(request):
     return HttpResponse(status=200)
 
 
-# Here we can access all our session variables & modify our Django models according to our needs
 def handle_checkout_session(session):
-    pass
+    # client_reference_id = user's id
+    client_reference_id = session.get("client_reference_id")
+    payment_intent = session.get("payment_intent")
+
+    if client_reference_id is None:
+        # Customer wasn't logged in when purchasing
+        return
+
+    # Customer was logged in we can now fetch the Django user and make changes to our models
+    try:
+        user = User.objects.get(id=client_reference_id)
+        print(user.username, "just purchased something.")
+
+        # TODO: make changes to our models.
+
+    except User.DoesNotExist:
+        pass
 
 
 class SuccessView(TemplateView):
