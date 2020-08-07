@@ -123,5 +123,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-STRIPE_PUBLISHABLE_KEY = '<your test publishable key here>'
-STRIPE_SECRET_KEY = '<your test secret key here>'
+from dotenv import load_dotenv
+load_dotenv()
+
+STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
