@@ -32,8 +32,8 @@ Check out the [post](https://testdriven.io/blog/django-stripe-tutorial/).
     STRIPE_PUBLISHABLE_KEY = '<your test publishable key here>'
     STRIPE_SECRET_KEY = '<your test secret key here>'
     ```
-   
-1. In case you are planning to confirm payments using webhooks you also need to add endpoint secret to the *settings.py* file:
+
+1. In case you're planning to confirm payments using webhooks you also need to add the webhook endpoint secret to the *settings.py* file:
 
     ```python
     STRIPE_ENDPOINT_SECRET = '<your endpoint secret here>'
