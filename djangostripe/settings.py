@@ -123,5 +123,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+
+# Stripe configuration
 STRIPE_PUBLISHABLE_KEY = '<your test publishable key here>'
 STRIPE_SECRET_KEY = '<your test secret key here>'
+
+# This is only required when using webhooks
+STRIPE_ENDPOINT_SECRET = '<your endpoint secret key here>'
+
