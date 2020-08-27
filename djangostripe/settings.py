@@ -123,6 +123,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [Path(BASE_DIR).joinpath('static')]
 
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51EsFTOJCn3gC406T10j8cl5TJkF29w4aECOnsIrTQ5d0KSY1sfmI9LYYetpzXpyuO3qL2rMjT6iBDlcSg0Ych0vM00TD1WG0P6'
-STRIPE_SECRET_KEY = 'sk_test_51EsFTOJCn3gC406TheboKoGFrlPUZA82czbQjjion8CgoGauRZsABGiRKMTLSl1L1KYzaSoxjJfkTbdj0Gt14Lb000ZOQyZYN2'
-STRIPE_ENDPOINT_SECRET = 'whsec_TVXgZgjYDrryuUocfcMhUlhoj9p0C0sc'
+# Stripe configuration
+STRIPE_PUBLISHABLE_KEY = '<your test publishable key here>'
+STRIPE_SECRET_KEY = '<your test secret key here>'
+
+# This is only required when using webhooks
+STRIPE_ENDPOINT_SECRET = '<your endpoint secret key here>'
