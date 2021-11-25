@@ -147,7 +147,7 @@ class CancelledView(TemplateView):
 @csrf_exempt
 def stripe_webhook(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY
-    endpoint_secret = 'whsec_TVXgZgjYDrryuUocfcMhUlhoj9p0C0sc'
+    endpoint_secret = settings.STRIPE_ENDPOINT_SECRET
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
     event = None
@@ -164,7 +164,6 @@ def stripe_webhook(request):
         return HttpResponse(status=400)
 
     # Handle the checkout.session.completed event
-    print(event['type'])
     if event['type'] == 'checkout.session.completed':
         print("Payment was successful.")
         # TODO: run some custom code here
