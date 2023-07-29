@@ -2,7 +2,7 @@
 
 ## Want to learn how to build this?
 
-Check out the [post](https://testdriven.io/blog/django-stripe-tutorial/).
+Check out the [tutorial](https://testdriven.io/blog/django-stripe-tutorial/).
 
 ## Want to use this project?
 
